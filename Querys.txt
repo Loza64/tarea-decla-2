@@ -1,0 +1,6 @@
+persona(X).
+motivo(X,_).
+estuvo(X, biblioteca).
+motivo(X,_), estuvo(X, biblioteca).
+acceso(X, cuerda).
+motivo(X,_), estuvo(X, biblioteca),accesso(X, cuerda).
