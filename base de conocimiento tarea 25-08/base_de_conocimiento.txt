@@ -1,0 +1,62 @@
+hijo(clara, esteban).
+hijo(clara, mariela).
+hijo(rodolfo, esteban). 
+hijo(rodolfo, mariela).
+hijo(ismael, esteban).
+hijo(ismael, mariela).
+
+esposo(esteban, mariela)
+esposo(andres, clara).
+esposa(mariela, esteban).
+esposa(clara, andres).
+
+hijo(sofia, clara).
+hijo(sofia, andres).
+
+esposo(rodolfo, teresa).
+esposa(teresa, rodolfo).
+
+hijo(lucas, teresa).
+hijo(lucas, rodolfo).
+hijo(martina, teresa).
+hijo(martina, rodolfo).
+
+amigo(hector, ismael).
+esposo(alonso, beatriz).
+esposa(beatriz, alonso).
+
+hijo(felipe, beatriz).
+hijo(felipe, alonso).
+hijo(catalina, beatriz)
+hijo(catalina, alonso).
+hijo(emilia, beatriz).
+hijo(emilia, alonso).
+
+esposa(catalina, andres).
+esposo(andres, catalina).
+
+festividad(rivoria, fiesta_del_rio).
+festividad(montelar, ceremonia_de_la_luna).
+festividad(durania, la_feria_del_grano).
+
+venerar(rivoria, espiritu_del_agua).
+venerar(montelar, espiritu_de_la_montania).
+venerar(durania, espiritu_de_la_tierra).
+
+vive(esteban, rivoria).
+alianza(rivoria, durania).
+propuso(esteban, alianza).
+invitar(rivoria, montelar).
+
+herrero(hector, rivoria).
+tejedora(teresa, rivoria).
+maestra(clara, rivoria).
+
+curandera(catalina, montelar).
+explorador(felipe, montelar).
+ceramista(emilia, montelar).
+
+agricultor(mateo, durania).
+crear(irene, rivoria).
+esposa(irene, mateo).
+esposo(mateo, irene).
