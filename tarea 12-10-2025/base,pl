@@ -1,0 +1,98 @@
+:- dynamic empleado/3.
+
+% Hechos
+empleado('Ana', contabilidad, 900).
+empleado('Luis', sistemas, 1200).
+empleado('Sofía', marketing, 1100).
+
+% Mostrar todos los empleados
+listar_empleados :-
+    writeln('--- LISTA DE EMPLEADOS ---'),
+    empleado(Nombre, Depto, Salario),
+    format('Nombre: ~w | Depto: ~w | Salario: $~w~n', [Nombre, Depto, Salario]),
+    fail.
+listar_empleados :-
+    writeln('----------------------------').
+
+% Agregar un nuevo empleado
+agregar_empleado :-
+    write('Nombre: '), read(Nombre),
+    write('Departamento: '), read(Depto),
+    write('Salario: '), read(Salario),
+    assertz(empleado(Nombre, Depto, Salario)),
+    format('Se agregó a ~w en el departamento ~w con salario $~w.~n',
+           [Nombre, Depto, Salario]).
+
+% Eliminar un empleado por nombre
+eliminar_empleado :-
+    write('Nombre a eliminar: '), read(Nombre),
+    (   empleado(Nombre, Depto, Salario)
+    ->  retract(empleado(Nombre, Depto, Salario)),
+        format('🗑️  Se eliminó a ~w del departamento ~w (salario $~w).~n',
+               [Nombre, Depto, Salario])
+    ;   format('❌ No existe un empleado con el nombre ~w.~n', [Nombre])
+    ).
+
+% Actualizar datos de un empleado
+actualizar_empleado :-
+    write('Nombre: '), read(Nombre),
+    (   empleado(Nombre, _, _)
+    ->  write('Nuevo departamento: '), read(NuevoDepto),
+        write('Nuevo salario: '), read(NuevoSalario),
+        retractall(empleado(Nombre, _, _)),
+        assertz(empleado(Nombre, NuevoDepto, NuevoSalario)),
+        format('Datos actualizados: ~w → Depto: ~w | Salario: $~w~n',
+               [Nombre, NuevoDepto, NuevoSalario])
+    ;   format('No existe un empleado llamado ~w.~n', [Nombre])
+    ).
+
+% Agregar empleado con validación
+agregar_unico :-
+    write('Nombre: '), read(Nombre),
+    write('Departamento: '), read(Depto),
+    write('Salario: '), read(Salario),
+    (   empleado(Nombre, _, _)
+    ->  format('El empleado ~w ya existe en la base.~n', [Nombre])
+    ;   assertz(empleado(Nombre, Depto, Salario)),
+        format('Se agregó a ~w en el departamento ~w con salario $~w.~n',
+               [Nombre, Depto, Salario])
+    ).
+
+% Eliminar todos los empleados
+eliminar_todos :-
+    retractall(empleado(_, _, _)),
+    writeln('Todos los empleados han sido eliminados de la base.').
+
+% Menú principal del sistema
+menu :-
+    writeln('========= MENÚ ========='),
+    writeln('1. Listar empleados'),
+    writeln('2. Agregar empleado'),
+    writeln('3. Eliminar empleado'),
+    writeln('4. Actualizar empleado'),
+    writeln('5. Agregar con validación'),
+    writeln('6. Eliminar todos'),
+    writeln('0. Salir'),
+    writeln('========================'),
+    write('Seleccione una opción: '),
+    read(Opcion),
+    ejecutar_opcion(Opcion).
+
+% Lógica del menú
+ejecutar_opcion(1) :- listar_empleados, menu.
+ejecutar_opcion(2) :- agregar_empleado, menu.
+ejecutar_opcion(3) :- eliminar_empleado, menu.
+ejecutar_opcion(4) :- actualizar_empleado, menu.
+ejecutar_opcion(5) :- agregar_unico, menu.
+ejecutar_opcion(6) :- eliminar_todos, menu.
+ejecutar_opcion(0) :- writeln('Fin del sistema de empleados.').
+ejecutar_opcion(_) :-
+    writeln('Opción no válida, intente nuevamente.'),
+    menu.
+
+% Punto de entrada principal
+main :-
+    writeln('=========================================='),
+    writeln('SISTEMA DE EMPLEADOS INICIADO'),
+    writeln('=========================================='),
+    menu.
